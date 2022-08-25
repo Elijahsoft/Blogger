@@ -13,21 +13,7 @@ export const signup = async (req, res) => {
   await User.create(req.body);
   return res.send({ message: "new user is created" });
 };
-export const testjoi = (req, res) => {
-  const schema = Joi.object({
-    name: Joi.string().alphanum().min(3).max(30).required(),
-    birthyear: Joi.number().integer().min(1970).max(2013),
-  });
-  const dataToValidate = {
-    name: "chris",
-    birthyea: 1971,
-  };
-  const { error, value } = schema.validate(dataToValidate);
-  if (error) {
-    return res.send({ error: error.details[0].message });
-  }
-  return res.send(JSON.stringify(result));
-};
+
 export const getAllUsers = async (req, res) => {
   const user = await User.findAll();
   return res.send({ user });
