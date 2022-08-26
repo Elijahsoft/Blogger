@@ -1,4 +1,3 @@
-import { JsonWebToken } from "jsonwebtoken";
 
 export const checkAge = (req,res,next) =>{
     const {age} = req.body;

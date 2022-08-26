@@ -16,3 +16,20 @@ export const articleCreate = async (req,res) =>{
 
     });
    }
+   export const deleteArticle = async (req,res)=>{
+    const id = req.params.id;
+
+   await Article.destroy({
+        where :{
+            id: id
+        }
+    });
+    
+    return res.send({message: " Article deleted"});
+
+   }
+   export const allArticle = async (req,res) =>{
+    const article = await Article.findAll();
+
+    return res.send({article})
+   }

@@ -1,6 +1,7 @@
 import { validateUser } from "../helpers/user.validator";
 import { User } from "../migration/user.model";
 import Joi from "joi";
+import { signToken } from "../helpers/authentication";
 
 export const signup = async (req, res) => {
   //check validataion
@@ -27,8 +28,8 @@ export const signin = async (req, res) => {
       password,
     },
   });
-  if(!user){
-    return res.send({error:'Invalid email or password', status: 400})
+  if (!user) {
+    return res.send({ error: "Invalid email or password", status: 400 });
   }
-  return res.send({ user });
+  return res.send({ user, token: signToken(user) });
 };
