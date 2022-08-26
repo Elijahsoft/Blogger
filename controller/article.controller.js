@@ -18,14 +18,25 @@ export const articleCreate = async (req,res) =>{
    }
    export const deleteArticle = async (req,res)=>{
     const id = req.params.id;
-
-   await Article.destroy({
-        where :{
-            id: id
+    const alive = await Article.findOne({
+        where:{
+            id : id,
         }
     });
+    if(!alive){
+       
+        return res.send({message: " Article Already deleted"});
+    }else{
+        Article.destroy({
+            where :{
+                id: id
+            }
+        });
+        return res.send({message: " Article deleted"});
+    }
+
+  
     
-    return res.send({message: " Article deleted"});
 
    }
    export const allArticle = async (req,res) =>{
