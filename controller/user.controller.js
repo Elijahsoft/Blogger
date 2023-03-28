@@ -31,5 +31,6 @@ export const signin = async (req, res) => {
   if (!user) {
     return res.send({ error: "Invalid email or password", status: 400 });
   }
+  
   return res.send({ user, token: signToken(user) });
 };
