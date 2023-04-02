@@ -1,34 +1,12 @@
 import express from "express";
-import morgan from "morgan";
 import { userRoutes } from "./routes/user";
 import { articleRoute } from "./routes/article";
-
-
+import bodyParser from "body-parser";
+import cors from "cors";
 const app = express();
-app.set("view engine","ejs")
-app.use(express.static("public"));
-app.use(express.urlencoded({extended: true}));
-app.use(morgan("dev"))
-
-app.get("/", (req,res)=>{
-  res.render('index',{title:"Home"});
-});
-app.get("/login", (req,res)=>{
-  res.render('form/index',{title:"Login | laddie blog"});
-})
-app.get("/about/", (req,res)=>{
-  res.render('about',{title:"About Us"});
-});
-app.get("/post", (req,res)=>{
-  res.render('post',{title:"Sample Post"});
-});
-app.get("/contact", (req,res)=>{
-  res.render('contact',{title:"Contact"});
-});
-app.get("/logout", (req,res)=>{
-  res.render('form/index',{title:"Laddie Blog | Sign In"});
-});
-
+app.use(cors());
+app.use(express.json())
+app.use(bodyParser.urlencoded({extended: false}))
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/article", articleRoute);
 
