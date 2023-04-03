@@ -15,15 +15,6 @@ export const testJoi = (req, res) => {
   const schema = Joi.object({});
 };
 
-export const oneArticle = async (req, res) => {
-  const id = req.params.id;
-  const article = await Article.findOne({
-    where: {
-      id: id,
-    },
-  });
-  return res.send({ article });
-};
 export const deleteArticle = async (req, res) => {
   const id = req.params.id;
   const alive = await Article.findOne({
@@ -42,8 +33,20 @@ export const deleteArticle = async (req, res) => {
     return res.send({ message: " Article deleted" });
   }
 };
+
 export const allArticle = async (req, res) => {
   const article = await Article.findAll();
 
   return res.send({ article });
+};
+export const getArticle = async (req, res) => {
+  const id = req.params.id;
+  const article = await Article.findByPk(id);
+  return res.send({ article });
+};
+
+export const updateArticle = async (req, res) => {
+  const id = req.params.id;
+  const updateArticle = await Article.update(req.body, { where: { id: id } });
+  return res.send({ message: "Article successfull updated" });
 };

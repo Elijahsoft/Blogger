@@ -1,8 +1,9 @@
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
-import bootstrap from 'bootstrap'
+import bootstrap from "bootstrap";
+import { Link } from "react-router-dom";
 const Nav = () => {
-   window.addEventListener("DOMContentLoaded", () => {
+  window.addEventListener("DOMContentLoaded", () => {
     let scrollPos = 0;
     const mainNav = document.getElementById("mainNav");
     const headerHeight = mainNav.clientHeight;
@@ -52,37 +53,38 @@ const Nav = () => {
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto py-4 py-lg-0">
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogger/">
+              <Link class="nav-link px-lg-3 py-3 py-lg-4" to="/blogger/">
                 Home
-              </a>
+              </Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogger/Create">
-                Create
-              </a>
+                           <Link class="nav-link px-lg-3 py-3 py-lg-4" to="/blogger/Create">
+              Create
+              </Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogger/about">
-                About
-              </a>
+              
+              <Link class="nav-link px-lg-3 py-3 py-lg-4" to="/blogger/about">
+              About
+              </Link>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link px-lg-3 py-3 py-lg-4"
-                href="/blogger/sample-post"
-              >
-                Sample Post
-              </a>
+            <Link class="nav-link px-lg-3 py-3 py-lg-4" to="/blogger/sample-post">
+              Sample Post
+              </Link>
+              
             </li>
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogger/contact">
-                Contact
-              </a>
+             
+              <Link class="nav-link px-lg-3 py-3 py-lg-4" to="/blogger/contact">
+              Contact
+              </Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blogger/logout">
-                Logout
-              </a>
+            
+              <Link class="nav-link px-lg-3 py-3 py-lg-4" to="/blogger/logout">
+              Logout
+              </Link>
             </li>
           </ul>
         </div>

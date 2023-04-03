@@ -4,9 +4,9 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Post from "./pages/Post";
 import Home from "./pages/Home";
-import Create from "./components/blogs/Create";
-import View from "./components/blogs/View";
-import Edit from "./components/blogs/Edit";
+import Create from "./pages/blogs/Create";
+import View from "./pages/blogs/View";
+import Edit from "./pages/blogs/Edit";
 import Index from "./pages/form/signIn";
 import reportWebVitals from "./reportWebVitals";
 import NotFound from "./pages/NotFound";
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <View />,
   },
   {
-    path: "/blogger/view/edit/:id/:articleTitle/:articleSubtitle/:articleBody ",
+    path: "/blogger/view/edit/:id",
     element: <Edit />,
   },
   {

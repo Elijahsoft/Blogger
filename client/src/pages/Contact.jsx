@@ -1,7 +1,8 @@
-import React, { useEffect }  from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import img from "../assets/img/contact-bg.jpg";
+import { Link } from "react-router-dom";
 const Contact = () => {
   if (!localStorage.getItem("user") && !localStorage.getItem("userToken")) {
     window.location.replace("/blogger/signin");
@@ -9,6 +10,15 @@ const Contact = () => {
   useEffect(() => {
     document.title = "LBlog |  Contact ";
   });
+
+  const [inputValue, setInputValue] = useState({});
+  const handleChange = useCallback(
+    (e) => {
+      setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+    },
+    [inputValue]
+  );
+  const { name, subject, message } = inputValue;
   return (
     <>
       <Nav />
@@ -34,123 +44,57 @@ const Contact = () => {
                 message and I will get back to you as soon as possible!
               </p>
               <div class="my-5">
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                  <div class="form-floating">
-                    <input
-                      class="form-control"
-                      id="name"
-                      type="text"
-                      placeholder="Enter your name..."
-                      data-sb-validations="required"
-                    />
-                    <label for="name">Name</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="name:required"
-                    >
-                      A name is required.
-                    </div>
-                  </div>
-                  <div class="form-floating">
-                    <input
-                      class="form-control"
-                      id="email"
-                      type="email"
-                      placeholder="Enter your email..."
-                      data-sb-validations="required,email"
-                    />
-                    <label for="email">Email address</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="email:required"
-                    >
-                      An email is required.
-                    </div>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="email:email"
-                    >
-                      Email is not valid.
-                    </div>
-                  </div>
-                  <div class="form-floating">
-                    <input
-                      class="form-control"
-                      id="phone"
-                      type="tel"
-                      placeholder="Enter your phone number..."
-                      data-sb-validations="required"
-                    />
-                    <label for="phone">Phone Number</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="phone:required"
-                    >
-                      A phone number is required.
-                    </div>
-                  </div>
-                  <div class="form-floating">
-                    <textarea
-                      class="form-control"
-                      id="message"
-                      placeholder="Enter your message here..."
-                      style={{ height: " 12rem" }}
-                      data-sb-validations="required"
-                    ></textarea>
-                    <label for="message">Message</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="message:required"
-                    >
-                      A message is required.
-                    </div>
-                  </div>
-                  <br />
-                  {/* <!-- Submit success message--> */}
-
-                  {/* <!-- This is what your users will see when the form--> */}
-                  {/* <!-- has successfully submitted--> */}
-                  <div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center mb-3">
-                      <div class="fw-bolder">Form submission successful!</div>
-                      To activate this form, sign up at
-                      <br />
-                      <a href="https://startbootstrap.com/solution/contact-forms">
-                        https://startbootstrap.com/solution/contact-forms
-                      </a>
-                    </div>
-                  </div>
-                  {/* <!-- Submit error message--> */}
-
-                  {/* <!-- This is what your users will see when there is--> */}
-                  {/* <!-- an error submitting the form--> */}
-                  <div class="d-none" id="submitErrorMessage">
-                    <div class="text-center text-danger mb-3">
-                      Error sending message!
-                    </div>
-                  </div>
-                  {/* <!-- Submit Button--> */}
-                  <button
-                    class="btn btn-primary text-uppercase disabled"
-                    id="submitButton"
-                    type="submit"
-                  >
-                    Send
-                  </button>
-                </form>
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    name="name"
+                    type="text"
+                    defaultValue={null}
+                    onChange={handleChange}
+                    placeholder="Enter your name..."
+                    data-sb-validations="required"
+                  />
+                  <label htmlFor="name">Name</label>
+                </div>
               </div>
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  name="subject"
+                  defaultValue={null}
+                  onChange={handleChange}
+                  type="subject"
+                  placeholder="Enter your subject..."
+                  data-sb-validations="required,subject"
+                />
+                <label htmlFor="subject">Subject</label>
+              </div>
+
+              <div class="form-floating">
+                <textarea
+                  class="form-control"
+                  name="message"
+                  defaultValue={null}
+                  onChange={handleChange}
+                  placeholder="Enter your message here..."
+                  style={{ height: " 12rem" }}
+                  data-sb-validations="required"
+                ></textarea>
+                <label htmlFor="message">Message</label>
+              </div>
+              <br />
+
+              <Link
+                className="btn btn-primary text-uppercase"
+                to={`mailto:elijahsoft@gmail.com?subject=${subject}&body=I'm, ${name} I'sent-{${message}} to you`}
+              >
+                Send Message
+              </Link>
             </div>
           </div>
         </div>
       </main>
-      {/* <!-- Footer--> */}
       <Footer />
-      {/* <!-- Bootstrap core JS--> */}
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      {/* <!-- Core theme JS--> */}
-      <script src=".js/scripts.js"></script>
-
-      <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </>
   );
 };

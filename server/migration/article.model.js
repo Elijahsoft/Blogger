@@ -19,6 +19,9 @@ export const Article = sequelize.define(
     body: {
       type: DataTypes.STRING(1000),
     },
+    author: {
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,

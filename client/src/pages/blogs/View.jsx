@@ -1,36 +1,44 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/style.css";
 import img from "../../assets/img/post-sample-image.jpg";
-import Footer from "../Footer";
-import { useParams } from "react-router-dom";
-import Nav from "../Nav";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { ARTICLE_SERVER_URL } from "../../util";
-/**
- *
- * Rename this component to ViewArticle or ArticleDetail
- */
+import Nav from "../../components/Nav";
+import Footer from "../../components/Footer";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+
 const ViewArticle = () => {
-  const [article, setArticle] = useState([]);
+  const { id,articleTitle,articleSubtitle,articleBody } = useParams();
+  if(!id){
+    window.location.replace("/");
+
+  }
+
   if (!localStorage.getItem("user") && !localStorage.getItem("userToken")) {
     window.location.replace("/blogger/signin");
   }
-
+const deleteArticle =  async() =>{
+const {data} = await axios.delete(`${ARTICLE_SERVER_URL}/delete/${id}`)
+if(data.message){
+  toast(data.message)
+}
+setInterval(() => {
+  window.location.replace("/");
+}, 6000);
+}
   useEffect(() => {
     document.title = "LBlog |  View ";
   });
 
   const GetArticle = () => {
-    const { id,articleTitle,articleSubtitle,articleBody } = useParams();
     const title = articleTitle.split("-").join(" ");
     const subtitle = articleSubtitle.split("-").join(" ");
     const body = articleBody.split("-").join(" ");
-
-    const titleURL = title.replace(/[^a-zA-Z0-9 ]/g, '').split(" ").join("-");
-    const subtitleURL = subtitle.replace(/[^a-zA-Z0-9 ]/g, '').split(" ").join("-");
-    const bodyURL = body.replace(/[^a-zA-Z0-9 ]/g, '').split(" ").join("-");
     return (
       <>
+      <ToastContainer/>
         <div className="post-preview" key={id}>
           <h2 className="post-title fs-1">
            {title}
@@ -39,14 +47,18 @@ const ViewArticle = () => {
             {subtitle}
           </h4>
 
-          <p className="post-meta">
+          <p className="post-body">
            {body}
           </p>
           
-          <a href={`/blogger/view/edit/${id}/${titleURL}/${subtitleURL}/${bodyURL}`} className="btn btn-primary">
+          <Link to={`/blogger/view/edit/${id}`} className="btn btn-primary">
               
               Edit
-            </a>
+          </Link>
+          <button onClick={deleteArticle}  className="btn btn-danger mx-3">
+              
+              Delete
+          </button>
         </div>
       </>
     );
@@ -77,7 +89,6 @@ const ViewArticle = () => {
       <div className="container">
         <div className="row   justify-content-center">
           <div className="">
-            {/* <!-- Post preview--> */}
             <GetArticle />
 
           </div>

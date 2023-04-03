@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "../../assets/style.css";
 import img from "../../assets/img/post-sample-image.jpg";
-import Nav from "../Nav";
 import axios from "axios";
 import { ARTICLE_SERVER_URL } from "../../util";
 import { toast, ToastContainer } from "react-toastify";
+import Nav from "../../components/Nav";
 
 const Create = () => {
   const [articleData, setArticleData] = useState({});
@@ -16,18 +16,21 @@ const Create = () => {
   });
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const userId = parseInt(user.id)
- 
-
-  const handleChange = useCallback(
+  const userId = parseInt(user.id);
+  const author = user.fullNames;
+  
+   const handleChange = useCallback(
     (e) => {
-      setArticleData({ ...articleData, [e.target.name]: e.target.value ,UserId: userId} );
-      
+      setArticleData({
+        ...articleData,
+        [e.target.name]: e.target.value,
+        UserId: userId,
+        author: author,
+      });
     },
     [articleData]
   );
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { data } = await axios.post(
@@ -37,12 +40,13 @@ const Create = () => {
     if (data.error) {
       toast(data.error);
     } else {
-      toast("Article Created successful")
-      setInterval(()=>{
-        window.location.replace("/")
-      },6000)
+      toast("Article Created successful");
+      setInterval(() => {
+        window.location.replace("/");
+      }, 6000);
     }
   };
+  
   return (
     <>
       <Nav />
@@ -66,7 +70,6 @@ const Create = () => {
               <div className="form-floating">
                 <input
                   className="form-control"
-                  id="Title"
                   type="text"
                   name="title"
                   onChange={handleChange}
@@ -82,7 +85,6 @@ const Create = () => {
               <div className="form-floating">
                 <input
                   className="form-control"
-                  id="subtitle"
                   name="subtitle"
                   onChange={handleChange}
                   type="text"
@@ -97,7 +99,6 @@ const Create = () => {
               <div className="form-floating">
                 <textarea
                   className="form-control"
-                  id="body"
                   name="body"
                   onChange={handleChange}
                   placeholder="Enter your body here..."
@@ -109,10 +110,9 @@ const Create = () => {
                 </label>
               </div>
               <br />
-           
+
               <button
                 className="btn btn-primary text-uppercase "
-                id="submitButton"
                 type="submit"
                 onClick={handleSubmit}
               >
