@@ -8,16 +8,18 @@ import Nav from "../../components/Nav";
 
 const Create = () => {
   const [articleData, setArticleData] = useState({});
-  if (!localStorage.getItem("user") && !localStorage.getItem("userToken")) {
-    window.location.replace("/blogger/signin");
-  }
-  useEffect(() => {
-    document.title = "LBlog |  Create ";
-  });
-
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = parseInt(user.id);
   const author = user.fullNames;
+  useEffect(() => {
+    document.title = "LBlog |  Create ";
+  });
+  if (!localStorage.getItem("user") && !localStorage.getItem("userToken")) {
+    window.location.replace("/blogger/signin");
+  }
+
+
+ 
   
    const handleChange = useCallback(
     (e) => {

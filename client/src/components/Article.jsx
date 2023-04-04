@@ -5,12 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
 const Article = ({ articleDetail }) => {
-  if(articleDetail == undefined){
-    window.location.replace("/")
-  }
-
   const [inputValue, setInputValue] = useState(articleDetail);
 
+  if (articleDetail == undefined) {
+    window.location.replace("/");
+  }
   const handleChange = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };

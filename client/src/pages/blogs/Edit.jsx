@@ -8,11 +8,11 @@ import { ARTICLE_SERVER_URL } from "../../util";
 import Article from "../../components/Article";
 
 const Edit = () => {
+  const [articleDetail, setArticleDetail] = useState([]);
   const { id } = useParams();
   if (!id) {
     window.location.replace("/");
   }
-  const [articleDetail, setArticleDetail] = useState([]);
 
   if (!localStorage.getItem("user") && !localStorage.getItem("userToken")) {
     window.location.replace("/blogger/signin");
