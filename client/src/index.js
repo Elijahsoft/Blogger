@@ -8,7 +8,6 @@ import Create from "./pages/blogs/Create";
 import View from "./pages/blogs/View";
 import Edit from "./pages/blogs/Edit";
 import Index from "./pages/form/signIn";
-import reportWebVitals from "./reportWebVitals";
 import NotFound from "./pages/NotFound";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
  import Logout from "./pages/form/logout";
@@ -71,4 +70,3 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

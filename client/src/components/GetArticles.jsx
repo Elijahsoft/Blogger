@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ARTICLE_SERVER_URL } from "../util";
 import { Link } from "react-router-dom";
+import Empty from "./Empty";
 
 const GetArticles = () => {
   const [articleDetail, setArticleDetail] = useState([]);
@@ -9,8 +10,10 @@ const GetArticles = () => {
   const fetchArticles = async () => {
     const { data } = await axios.get(`${ARTICLE_SERVER_URL}/all`);
     setArticleDetail(data.article);
+   
+
   };
-  
+
   const makeUrl = (text) => {
     return text
       .replace(/[^a-zA-Z0-9 ]/g, "")
@@ -20,9 +23,10 @@ const GetArticles = () => {
   useEffect(() => {
     fetchArticles();
   }, []);
+
   return (
     <div>
-      {articleDetail.map((post) =>  (
+      {articleDetail.article !== undefined ? articleDetail.map((post) =>  (
           <>
             <div className="post-preview" key={post.id}>
               <Link
@@ -39,7 +43,7 @@ const GetArticles = () => {
             <hr className="my-4" />
           </>
         )
-      )}
+      ):<Empty/>}
     </div>
   );
 };
